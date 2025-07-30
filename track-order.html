@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACUASAFE - Track Order</title>
+    <link rel="stylesheet" href="../css/user.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="user-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="../images/logo.jpg">
+              
+            </div>
+            <nav class="user-nav">
+                <ul>
+                    <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="order-history.html"><i class="fas fa-history"></i> Order History</a></li>
+                    <li><a href="track-order.html" class="active"><i class="fas fa-truck"></i> Track Order</a></li>
+                    <li><a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="user-main">
+            <header class="user-header">
+                <h1>Track Your Order</h1>
+                <div class="user-info">
+                    <span id="user-name">User Name</span>
+                    <div class="avatar">U</div>
+                </div>
+            </header>
+
+            <section class="track-order">
+                <div class="search-order">
+                    <h2><i class="fas fa-search-location"></i> Find Your Order</h2>
+                    <div class="search-form">
+                        <input type="text" id="order-id" placeholder="Enter Order ID (e.g. ORD-1001)">
+                        <button id="search-order-btn" class="btn btn-primary">
+                            <i class="fas fa-search"></i> Track Order
+                        </button>
+                    </div>
+                </div>
+
+                <div id="order-details" class="hidden">
+                    <div class="order-info">
+                        <h3><i class="fas fa-info-circle"></i> Order Information</h3>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="info-label">Order ID:</span>
+                                <span id="track-order-id" class="info-value"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Date Placed:</span>
+                                <span id="track-order-date" class="info-value"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Kiosk:</span>
+                                <span id="track-order-kiosk" class="info-value"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Bottle Size:</span>
+                                <span id="track-order-size" class="info-value"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Quantity:</span>
+                                <span id="track-order-quantity" class="info-value"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Total Amount:</span>
+                                <span id="track-order-amount" class="info-value"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Payment Method:</span>
+                                <span id="track-order-payment" class="info-value"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Status:</span>
+                                <span id="track-order-status" class="info-value status"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="delivery-progress">
+                        <h3><i class="fas fa-map-marked-alt"></i> Delivery Progress</h3>
+                        <div class="progress-bar">
+                            <div id="progress-fill" class="progress-fill"></div>
+                        </div>
+                        <div class="progress-steps">
+                            <div class="progress-step" data-step="0">
+                                <i class="fas fa-shopping-cart"></i> Ordered
+                            </div>
+                            <div class="progress-step" data-step="25">
+                                <i class="fas fa-cog"></i> Processing
+                            </div>
+                            <div class="progress-step" data-step="50">
+                                <i class="fas fa-truck"></i> Shipped
+                            </div>
+                            <div class="progress-step" data-step="75">
+                                <i class="fas fa-map-marker-alt"></i> Nearby
+                            </div>
+                            <div class="progress-step" data-step="100">
+                                <i class="fas fa-check-circle"></i> Delivered
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="order-map">
+                        <div id="map-placeholder">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <h3>Delivery Location</h3>
+                            <p id="delivery-location-text">Loading delivery route...</p>
+                        </div>
+                    </div>
+
+                    <div class="delivery-person">
+                        <img id="delivery-person-img" src="../images/delivery/driver1.jpg" alt="Delivery Person">
+                        <div class="delivery-person-info">
+                            <h4 id="delivery-person-name"></h4>
+                            <p id="delivery-person-phone"></p>
+                            <p id="delivery-person-vehicle"></p>
+                            <p id="delivery-time-estimate"></p>
+                        </div>
+                        <button class="contact-btn" id="contact-delivery-btn">
+                            <i class="fas fa-phone"></i> Call Delivery
+                        </button>
+                    </div>
+
+                    <div class="order-items">
+                        <h3><i class="fas fa-box-open"></i> Order Items</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Quantity</th>
+                                    <th>Unit Price</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="order-items-list">
+                                <!-- Items will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="no-order-found" class="hidden">
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>Order Not Found</h3>
+                        <p>We couldn't find an order with that ID.</p>
+                        <p>Please check your order number and try again.</p>
+                        <button class="btn btn-primary" id="try-again-btn">
+                            <i class="fas fa-redo"></i> Try Another Order
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../js/user.js"></script>
+</body>
+</html>

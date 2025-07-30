@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACUASAFE - Kiosk Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+    <div class="admin-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="../images/logo.jpg">
+            </div>
+            <nav class="admin-nav">
+                <ul>
+                    <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="kiosk-management.html" class="active"><i class="fas fa-store"></i> Kiosks</a></li>
+                    <li><a href="user-management.html"><i class="fas fa-users"></i> Users</a></li>
+                    <li><a href="reports.html"><i class="fas fa-flask"></i> Reports</a></li>
+                    <li><a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="admin-main">
+            <header class="admin-header">
+                <h1><i class="fas fa-store"></i> Kiosk Management</h1>
+                <div class="user-info">
+                    <span id="admin-name">Admin User</span>
+                    <div class="avatar">A</div>
+                </div>
+            </header>
+
+            <section class="kiosk-management">
+                <div class="section-header">
+                    <h2><i class="fas fa-water"></i> Water Kiosks</h2>
+                    <div class="kiosk-actions">
+                        <button id="add-kiosk-btn" class="btn btn-primary">
+                            <i class="fas fa-plus-circle"></i> Add Kiosk
+                        </button>
+                        <div class="kiosk-filters">
+                            <select id="filter-status">
+                                <option value="all">All Statuses</option>
+                                <option value="approved">Approved</option>
+                                <option value="pending">Pending</option>
+                                <option value="rejected">Rejected</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kiosk-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Approved</h3>
+                            <p id="approved-kiosks">5</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Pending</h3>
+                            <p id="pending-kiosks">2</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Rejected</h3>
+                            <p id="rejected-kiosks">1</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Kiosk Name <i class="fas fa-sort"></i></th>
+                                <th>Location <i class="fas fa-sort"></i></th>
+                                <th>License <i class="fas fa-sort"></i></th>
+                                <th>Admin <i class="fas fa-sort"></i></th>
+                                <th>Status <i class="fas fa-sort"></i></th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="kiosks-table-body">
+                            <!-- Kiosks will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination">
+                    <button id="prev-page" disabled><i class="fas fa-chevron-left"></i></button>
+                    <span id="page-info">Page 1 of 2</span>
+                    <button id="next-page"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add Kiosk Modal -->
+    <div id="add-kiosk-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2><i class="fas fa-store"></i> New Water Kiosk</h2>
+            <form id="add-kiosk-form">
+                <div class="form-group">
+                    <label for="modal-kiosk-name"><i class="fas fa-sign"></i> Kiosk Name</label>
+                    <input type="text" id="modal-kiosk-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="modal-kiosk-address"><i class="fas fa-map-marker-alt"></i> Address</label>
+                    <input type="text" id="modal-kiosk-address" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="modal-kiosk-latitude"><i class="fas fa-map-pin"></i> Latitude</label>
+                        <input type="number" id="modal-kiosk-latitude" step="0.000001" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="modal-kiosk-longitude"><i class="fas fa-map-pin"></i> Longitude</label>
+                        <input type="number" id="modal-kiosk-longitude" step="0.000001" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="modal-kiosk-license"><i class="fas fa-id-card"></i> License Number</label>
+                    <input type="text" id="modal-kiosk-license" required>
+                </div>
+                <div class="form-group">
+                    <label for="modal-kiosk-admin"><i class="fas fa-user-shield"></i> Kiosk Admin</label>
+                    <select id="modal-kiosk-admin" required>
+                        <option value="">Select Admin</option>
+                        <!-- Will be populated by JavaScript -->
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Register Kiosk
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="cancel-kiosk">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Kiosk Approval Modal -->
+    <div id="approve-kiosk-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2><i class="fas fa-check-circle"></i> Kiosk Approval</h2>
+            <div class="kiosk-details" id="kiosk-details-content">
+                <!-- Will be populated by JavaScript -->
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-success" id="approve-kiosk-btn">
+                    <i class="fas fa-check"></i> Approve
+                </button>
+                <button class="btn btn-danger" id="reject-kiosk-btn">
+                    <i class="fas fa-times"></i> Reject
+                </button>
+                <button class="btn btn-secondary" id="close-approval-modal">
+                    <i class="fas fa-times"></i> Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/admin.js"></script>
+</body>
+</html>

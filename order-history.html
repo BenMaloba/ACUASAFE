@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACUASAFE - Order History</title>
+    <link rel="stylesheet" href="../css/user.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/user.css">
+</head>
+<body>
+    <div class="user-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="../images/logo.jpg">
+            </div>
+            <nav class="user-nav">
+                <ul>
+                    <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="order-history.html" class="active"><i class="fas fa-history"></i> Order History</a></li>
+                    <li><a href="track-order.html"><i class="fas fa-truck"></i> Track Order</a></li>
+                    <li><a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="user-main">
+            <header class="user-header">
+                <h1>Order History</h1>
+                <div class="user-info">
+                    <span id="user-name">User Name</span>
+                    <div class="avatar">U</div>
+                </div>
+            </header>
+
+            <section class="order-history">
+                <div class="section-header">
+                    <h2><i class="fas fa-water"></i> Your Water Refill Orders</h2>
+                    <div class="filter-controls">
+                        <div class="filter-group">
+                            <label for="filter-status"><i class="fas fa-filter"></i> Status:</label>
+                            <select id="filter-status">
+                                <option value="all">All Orders</option>
+                                <option value="completed">Completed</option>
+                                <option value="processing">Processing</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-date"><i class="fas fa-calendar"></i> Date:</label>
+                            <select id="filter-date">
+                                <option value="all">All Time</option>
+                                <option value="month">This Month</option>
+                                <option value="week">This Week</option>
+                                <option value="today">Today</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Date</th>
+                                <th>Kiosk</th>
+                                <th>Items</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="order-history-table-body">
+                            <!-- Orders will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pagination">
+                    <button id="prev-page" disabled><i class="fas fa-chevron-left"></i></button>
+                    <span id="page-info">Page 1 of 3</span>
+                    <button id="next-page"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div id="order-details-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Order Details</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body" id="order-details-content">
+                <!-- Order details will be populated here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary close-modal">Close</button>
+                <button class="btn btn-primary" id="track-this-order">Track This Order</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/user.js"></script>
+</body>
+</html>

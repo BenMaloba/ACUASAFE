@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACUASAFE - User Dashboard</title>
+    <link rel="stylesheet" href="../css/user.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Temporary inline styles for demo purposes */
+        .demo-watermark {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-watermark">DEMO DATA - FOR UI PURPOSES ONLY</div>
+    
+    <div class="user-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="../images/logo.jpg" alt="ACUASAFE Logo">
+            </div>
+            <nav class="user-nav">
+                <ul>
+                    <li><a href="dashboard.html" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="stations.html"><i class="fas fa-store"></i> Stations</a></li>
+                    <li><a href="order-history.html"><i class="fas fa-history"></i> Order History</a></li>
+                    <li><a href="track-order.html"><i class="fas fa-truck"></i> Track Order</a></li>
+                    <li><a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="user-main">
+            <header class="user-header">
+                <h1>Welcome Back, <span id="user-name-display">John</span>!</h1>
+                <div class="user-info">
+                    <span id="user-name">John Mwangi</span>
+                    <div class="avatar">JM</div>
+                </div>
+            </header>
+
+            <section class="quick-actions">
+                <h2><i class="fas fa-bolt"></i> Quick Actions</h2>
+                <div class="action-buttons">
+                    <button id="new-order-btn" class="btn btn-primary">
+                        <i class="fas fa-plus-circle"></i> New Water Refill Order
+                    </button>
+                    <button id="track-order-btn" class="btn btn-secondary">
+                        <i class="fas fa-truck"></i> Track Existing Order
+                    </button>
+                </div>
+            </section>
+
+            <section class="nearby-kiosks">
+                <h2><i class="fas fa-map-marker-alt"></i> Nearby Water Kiosks (3)</h2>
+                <div class="kiosk-cards" id="kiosk-cards-container">
+                    <!-- Kiosk Card 1 -->
+                    <div class="kiosk-card">
+                        <h3 class="kiosk-card__title">AquaPure Kiosk</h3>
+                        <p class="kiosk-card__detail">
+                            <i class="fas fa-map-marker-alt"></i> 123 River Road, Nairobi
+                        </p>
+                        <p class="kiosk-card__detail">
+                            <i class="fas fa-clock"></i> Open (Closes 8:00 PM)
+                        </p>
+                        <p class="kiosk-card__detail">
+                            <i class="fas fa-road"></i> <span class="kiosk-card__distance">1.2 km away</span>
+                        </p>
+                        <p class="kiosk-card__detail">
+                            <i class="fas fa-star"></i> 4.7 (128 reviews)
+                        </p>
+                        <span class="kiosk-card__status status--open">
+                            <i class="fas fa-check-circle"></i> Available
+                        </span>
+                        <div class="kiosk-card__actions" style="margin-top: 15px;">
+                            <button class="btn btn-primary btn-sm order-kiosk-btn">
+                                <i class="fas fa-shopping-cart"></i> Order Now
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Kiosk Card 2 -->
+                    <div class="kiosk-card">
+                        <h3 class="kiosk-card__title">FreshFlow Station</h3>
+                        <p class="kiosk-card__detail">
+                            <i class="fas fa-map-marker-alt"></i> 456 Mountain View, Nairobi
+                        </p>
+                        <p class="kiosk-card__detail">
+                            <i class="fas fa-clock"></i> Open (Closes 7:30 PM)
+                        </p>
+                        <p class="kiosk-card__detail">
+                            <i class="fas fa-road"></i> <span class="kiosk-card__distance">2.5 km away</span>
+                        </p>
+                        <p class="kiosk-card__detail">
+                            <i class="fas fa-star"></i> 4.5 (92 reviews)
+                        </p>
+                        <span class="kiosk-card__status status--open">
+                            <i class="fas fa-check-circle"></i> Available
+                        </span>
+                        <div class="kiosk-card__actions" style="margin-top: 15px;">
+                            <button class="btn btn-primary btn-sm order-kiosk-btn">
+                                <i class="fas fa-shopping-cart"></i> Order Now
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Kiosk Card 3 -->
+                    <div class="kiosk-card">
+                        <h3 class="kiosk-card__title">CleanH2O Depot</h3>
+                        <p class="kiosk-card__detail">
+                            <i class="fas fa-map-marker-alt"></i> 789 Valley Lane, Nairobi
+                        </p>
+                        <p class="kiosk-card__detail">
+                            <i class="fas fa-clock"></i> Closed (Opens 8:00 AM)
+                        </p>
+                        <p class="kiosk-card__detail">
+                            <i class="fas fa-road"></i> <span class="kiosk-card__distance">3.1 km away</span>
+                        </p>
+                        <p class="kiosk-card__detail">
+                            <i class="fas fa-star"></i> 4.3 (76 reviews)
+                        </p>
+                        <span class="kiosk-card__status status--closed">
+                            <i class="fas fa-times-circle"></i> Currently Closed
+                        </span>
+                        <div class="kiosk-card__actions" style="margin-top: 15px;">
+                            <button class="btn btn-secondary btn-sm" disabled>
+                                <i class="fas fa-shopping-cart"></i> Unavailable
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="recent-orders">
+                <h2><i class="fas fa-clock"></i> Your Recent Orders</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Date</th>
+                                <th>Kiosk</th>
+                                <th>Items</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="user-orders-table-body">
+                            <!-- Order 1 -->
+                            <tr>
+                                <td>ORD-78945</td>
+                                <td>Today, 10:30 AM</td>
+                                <td>AquaPure Kiosk</td>
+                                <td>2 × 20L bottles</td>
+                                <td>Ksh 300</td>
+                                <td>
+                                    <span class="badge badge--info">
+                                        <i class="fas fa-truck"></i> In Transit
+                                    </span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm">
+                                        <i class="fas fa-eye"></i> Track
+                                    </button>
+                                </td>
+                            </tr>
+                            
+                            <!-- Order 2 -->
+                            <tr>
+                                <td>ORD-78231</td>
+                                <td>Yesterday, 4:15 PM</td>
+                                <td>FreshFlow Station</td>
+                                <td>1 × 20L + 2 × 5L</td>
+                                <td>Ksh 250</td>
+                                <td>
+                                    <span class="badge badge--success">
+                                        <i class="fas fa-check-circle"></i> Delivered
+                                    </span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-secondary btn-sm">
+                                        <i class="fas fa-receipt"></i> Receipt
+                                    </button>
+                                </td>
+                            </tr>
+                            
+                            <!-- Order 3 -->
+                            <tr>
+                                <td>ORD-77892</td>
+                                <td>May 12, 9:00 AM</td>
+                                <td>AquaPure Kiosk</td>
+                                <td>3 × 10L bottles</td>
+                                <td>Ksh 270</td>
+                                <td>
+                                    <span class="badge badge--success">
+                                        <i class="fas fa-check-circle"></i> Delivered
+                                    </span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-secondary btn-sm">
+                                        <i class="fas fa-receipt"></i> Receipt
+                                    </button>
+                                </td>
+                            </tr>
+                            
+                            <!-- Order 4 -->
+                            <tr>
+                                <td>ORD-77654</td>
+                                <td>May 10, 2:30 PM</td>
+                                <td>CleanH2O Depot</td>
+                                <td>1 × 20L bottle</td>
+                                <td>Ksh 150</td>
+                                <td>
+                                    <span class="badge badge--danger">
+                                        <i class="fas fa-times-circle"></i> Cancelled
+                                    </span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-secondary btn-sm">
+                                        <i class="fas fa-info-circle"></i> Details
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- New Order Modal -->
+    <div id="new-order-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2><i class="fas fa-tint"></i> New Water Refill Order</h2>
+            <form id="new-order-form">
+                <div class="form-group">
+                    <label for="order-kiosk"><i class="fas fa-store"></i> Select Kiosk</label>
+                    <select id="order-kiosk" required>
+                        <option value="">Select a water kiosk</option>
+                        <option value="1" selected>AquaPure Kiosk (1.2 km away)</option>
+                        <option value="2">FreshFlow Station (2.5 km away)</option>
+                        <option value="3">CleanH2O Depot (3.1 km away)</option>
+                        <option value="4">PureDrop Center (4.7 km away)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="order-bottle-size"><i class="fas fa-bottle-water"></i> Bottle Size</label>
+                    <select id="order-bottle-size" required>
+                        <option value="">Select bottle size</option>
+                        <option value="5">5 Liters - Ksh 50</option>
+                        <option value="10">10 Liters - Ksh 90</option>
+                        <option value="20" selected>20 Liters - Ksh 150</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="order-quantity"><i class="fas fa-calculator"></i> Quantity</label>
+                    <input type="number" id="order-quantity" min="1" value="2" required>
+                </div>
+                <div class="form-group">
+                    <label for="order-address"><i class="fas fa-map-marked-alt"></i> Delivery Address</label>
+                    <textarea id="order-address" placeholder="Enter your full delivery address" required>123 Garden Estate, Nairobi</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="order-payment"><i class="fas fa-money-bill-wave"></i> Payment Method</label>
+                    <select id="order-payment" required>
+                        <option value="">Select payment method</option>
+                        <option value="mpesa" selected>M-Pesa</option>
+                        <option value="cash">Cash on Delivery</option>
+                        <option value="card">Credit Card</option>
+                    </select>
+                </div>
+                <div class="order-summary">
+                    <h3>Order Summary</h3>
+                    <div class="summary-details">
+                        <p>Bottle Size: <span id="summary-size">20 Liters</span></p>
+                        <p>Quantity: <span id="summary-quantity">2</span></p>
+                        <p>Unit Price: <span id="summary-unit-price">Ksh 150</span></p>
+                        <p class="total">Total: <span id="summary-total">Ksh 300</span></p>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-check-circle"></i> Place Order
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Order Confirmation Modal -->
+    <div id="order-confirmation-modal" class="modal">
+        <div class="modal-content">
+            <div class="confirmation-icon">
+                <i class="fas fa-check-circle" style="font-size: 60px; color: var(--success);"></i>
+            </div>
+            <h2>Order Placed Successfully!</h2>
+            <div class="confirmation-details">
+                <p>Your order <strong id="confirmed-order-id">ORD-78946</strong> has been placed.</p>
+                <p>You will receive an M-Pesa payment request shortly.</p>
+                <p style="margin-top: 10px;"><i class="fas fa-info-circle"></i> Estimated delivery: 45-60 minutes</p>
+            </div>
+            <div class="confirmation-actions">
+                <button id="view-order-btn" class="btn btn-primary">
+                    <i class="fas fa-truck"></i> Track Order
+                </button>
+                <button id="new-order-again-btn" class="btn btn-secondary">
+                    <i class="fas fa-plus-circle"></i> New Order
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Demo functionality for the UI
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle modals for demo purposes
+            const newOrderBtn = document.getElementById('new-order-btn');
+            const newOrderModal = document.getElementById('new-order-modal');
+            const closeModal = document.querySelector('.close-modal');
+            const confirmationModal = document.getElementById('order-confirmation-modal');
+            
+            newOrderBtn.addEventListener('click', () => {
+                newOrderModal.classList.remove('hidden');
+            });
+            
+            closeModal.addEventListener('click', () => {
+                newOrderModal.classList.add('hidden');
+            });
+            
+            document.getElementById('new-order-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                newOrderModal.classList.add('hidden');
+                confirmationModal.classList.remove('hidden');
+            });
+            
+            // Close modals when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target === newOrderModal) {
+                    newOrderModal.classList.add('hidden');
+                }
+                if (e.target === confirmationModal) {
+                    confirmationModal.classList.add('hidden');
+                }
+            });
+            
+            // Update order summary when form changes
+            const updateOrderSummary = () => {
+                const quantity = parseInt(document.getElementById('order-quantity').value) || 0;
+                const size = document.getElementById('order-bottle-size').value;
+                
+                let sizeText = '';
+                let price = 0;
+                
+                switch(size) {
+                    case '5':
+                        sizeText = '5 Liters';
+                        price = 50;
+                        break;
+                    case '10':
+                        sizeText = '10 Liters';
+                        price = 90;
+                        break;
+                    case '20':
+                        sizeText = '20 Liters';
+                        price = 150;
+                        break;
+                    default:
+                        sizeText = '-';
+                        price = 0;
+                }
+                
+                document.getElementById('summary-size').textContent = sizeText;
+                document.getElementById('summary-quantity').textContent = quantity;
+                document.getElementById('summary-unit-price').textContent = `Ksh ${price}`;
+                document.getElementById('summary-total').textContent = `Ksh ${quantity * price}`;
+            };
+            
+            document.getElementById('order-bottle-size').addEventListener('change', updateOrderSummary);
+            document.getElementById('order-quantity').addEventListener('input', updateOrderSummary);
+            
+            // Initialize summary
+            updateOrderSummary();
+        });
+    </script>
+</body>
+</html>
